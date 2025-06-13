@@ -1,0 +1,8 @@
+:root {
+  /* Default card variables */
+  --card-color-start: hsl(60, 1%, 48%);
+  --card-color-mid: #e4f3d7;
+  --card-color-end: #b2b2b1;
+  --card-border-color: var(--card-color-start);
+  --card-text-color: var(--card-color-mid);
+}
