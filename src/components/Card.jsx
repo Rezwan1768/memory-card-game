@@ -6,10 +6,10 @@ export function Card({ pokemon }) {
   const classes = `card ${type !== "unknown" ? `type-${type}` : ""}`;
   console.log(classes);
   return (
-    <div className={classes}>
+    <button className={classes}>
       {/* Only render <img> when the image URL is available to avoid empty src warning */}
-      {image && <img src={image} alt={name} height={200} width={200} />}
+      {image && <img src={image} alt={name} height={100} width={115} />}
       <p>{name}</p>
-    </div>
+    </button>
   );
 }

@@ -3,6 +3,20 @@
   --card-color-start: hsl(60, 1%, 48%);
   --card-color-mid: #e4f3d7;
   --card-color-end: #b2b2b1;
-  --card-border-color: var(--card-color-start);
+
   --card-text-color: var(--card-color-mid);
+  --card-font-size: clamp(0.75rem, 2.5vw, 1.4rem);
+
+  --card-border-color: var(--card-color-start);
+  --card-border-width: clamp(12px, 2vw, 20px);
+
+  --card-image-width: clamp(100px, 20vw, 180px);
+  --card-image-height: clamp(115px, 23vw, 206px);
+  --card-image-padding: 4px;
+
+  /* Total card width = image width + padding (x2) + border (x2) */
+  --card-total-width: calc(
+    var(--card-image-width) + var(--card-image-padding) * 2 +
+      var(--card-border-width) * 2
+  );
 }

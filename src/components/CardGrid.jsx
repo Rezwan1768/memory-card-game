@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Card } from "./Card";
+import "../styles/cardGrid.css";
 
 export function CardGrid() {
   const [pokemonData, setPokemonData] = useState([]);
