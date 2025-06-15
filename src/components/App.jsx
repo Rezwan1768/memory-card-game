@@ -1,7 +1,8 @@
 import { Card } from "./Card";
+import { CardGrid } from "./CardGrid";
 
 function App() {
-  return <Card />;
+  return <CardGrid />;
 }
 
 export default App;
