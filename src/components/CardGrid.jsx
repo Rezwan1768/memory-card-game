@@ -3,30 +3,45 @@ import { Card } from "./Card";
 import "../styles/cardGrid.css";
 
 export function CardGrid() {
+  const [pokemonCount, setPokemonCount] = useState(0);
   const [pokemonData, setPokemonData] = useState([]);
+  console.log(pokemonCount);
   console.log(pokemonData);
+  /*
+   * Get the total number of Pokémon in the database so we can fetch a random set
+   * instead of always using the same ones.
+   */
   useEffect(() => {
-    async function fetchData() {
-      const baseURL = "https://pokeapi.co/api/v2/pokemon";
-      const result = [];
+    const pokemonCountURL = "https://pokeapi.co/api/v2/pokemon-species?limit=1";
+    async function fetchPokemonCount() {
+      const response = await fetch(pokemonCountURL);
+      const pokemonListData = await response.json();
+      setPokemonCount(pokemonListData.count);
+    }
+    fetchPokemonCount();
+  }, []);
+
+  useEffect(() => {
+    async function fetchPokemonData() {
+      const pokemonBaseURL = "https://pokeapi.co/api/v2/pokemon";
+      const pokemonList = [];
       try {
         for (let i = 1; i < 20; ++i) {
-          const url = `${baseURL}/${i}`;
-          const response = await fetch(url);
+          const pokemonUrl = `${pokemonBaseURL}/${i}`;
+          const response = await fetch(pokemonUrl);
           const data = await response.json();
-          console.log(data);
           const formattedData = formatPokemonData(data);
 
           // Prevent adding duplicate pokemon
-          if (!result.some((pokemon) => pokemon.id === formattedData.id))
-            result.push(formattedData);
+          if (!pokemonList.some((pokemon) => pokemon.id === formattedData.id))
+            pokemonList.push(formattedData);
         }
-        setPokemonData(result);
+        setPokemonData(pokemonList);
       } catch (error) {
         console.log(error.message);
       }
     }
-    fetchData();
+    fetchPokemonData();
   }, []);
 
   return (

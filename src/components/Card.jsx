@@ -4,7 +4,6 @@ export function Card({ pokemon }) {
   const { name, type, image } = pokemon;
 
   const classes = `card ${type !== "unknown" ? `type-${type}` : ""}`;
-  console.log(classes);
   return (
     <button className={classes}>
       {/* Only render <img> when the image URL is available to avoid empty src warning */}
