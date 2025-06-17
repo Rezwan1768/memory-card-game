@@ -16,25 +16,34 @@ export function CardGrid() {
     async function fetchPokemonCount() {
       const response = await fetch(pokemonCountURL);
       const pokemonListData = await response.json();
+      console.log(pokemonListData.count);
       setPokemonCount(pokemonListData.count);
     }
     fetchPokemonCount();
   }, []);
 
   useEffect(() => {
+    if (pokemonCount <= 0) return;
+
+    // Generate and store unique pokemon ids to fetch
+    const pokemonIdSet = new Set();
+    while (pokemonIdSet.size < 20) {
+      const randomId = Math.floor(Math.random() * pokemonCount) + 1;
+      if (!pokemonIdSet.has(randomId)) pokemonIdSet.add(randomId);
+    }
+    console.log(pokemonIdSet);
+
     async function fetchPokemonData() {
       const pokemonBaseURL = "https://pokeapi.co/api/v2/pokemon";
       const pokemonList = [];
       try {
-        for (let i = 1; i < 20; ++i) {
-          const pokemonUrl = `${pokemonBaseURL}/${i}`;
+        for (let pokemonId of pokemonIdSet) {
+          const pokemonUrl = `${pokemonBaseURL}/${pokemonId}`;
           const response = await fetch(pokemonUrl);
           const data = await response.json();
           const formattedData = formatPokemonData(data);
 
-          // Prevent adding duplicate pokemon
-          if (!pokemonList.some((pokemon) => pokemon.id === formattedData.id))
-            pokemonList.push(formattedData);
+          pokemonList.push(formattedData);
         }
         setPokemonData(pokemonList);
       } catch (error) {
@@ -42,7 +51,7 @@ export function CardGrid() {
       }
     }
     fetchPokemonData();
-  }, []);
+  }, [pokemonCount]);
 
   return (
     <div className="card-grid">
@@ -57,6 +66,7 @@ export function CardGrid() {
 function formatPokemonData(data) {
   const rawName = data.name.trim();
   const name = rawName[0].toUpperCase() + rawName.slice(1);
+
   // Some image versions might be missing, used fallbacks in order of preference
   const image =
     data.sprites?.other?.dream_world?.front_default ||
