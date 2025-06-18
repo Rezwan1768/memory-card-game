@@ -31,34 +31,44 @@ export function CardGrid() {
       const randomId = Math.floor(Math.random() * pokemonCount) + 1;
       if (!pokemonIdSet.has(randomId)) pokemonIdSet.add(randomId);
     }
-    console.log(pokemonIdSet);
 
-    async function fetchPokemonData() {
-      const pokemonBaseURL = "https://pokeapi.co/api/v2/pokemon";
-      const pokemonList = [];
-      try {
-        for (let pokemonId of pokemonIdSet) {
-          const pokemonUrl = `${pokemonBaseURL}/${pokemonId}`;
-          const response = await fetch(pokemonUrl);
-          const data = await response.json();
-          const formattedData = formatPokemonData(data);
+    const pokemonBaseURL = "https://pokeapi.co/api/v2/pokemon";
 
-          pokemonList.push(formattedData);
-        }
-        setPokemonData(pokemonList);
-      } catch (error) {
-        console.log(error.message);
+    // Handle all Pokémon fetches at once using Promise.allSettled
+    const promises = Array.from(pokemonIdSet).map(async (pokemonId) => {
+      const pokemonUrl = `${pokemonBaseURL}/${pokemonId}`;
+      const response = await fetch(pokemonUrl);
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch Pokémon with id ${pokemonId}: ${response.status}`,
+        );
       }
-    }
-    fetchPokemonData();
+      const rawPokemonData = await response.json();
+      return formatPokemonData(rawPokemonData);
+    });
+
+    Promise.allSettled(promises).then((results) => {
+      /*
+       * Store all data first in a temporary array. Update state once all data
+       * is collected to minimize renders.
+       */
+      const pokemonList = [];
+      results.forEach((result) => {
+        if (result.status === "fulfilled") {
+          pokemonList.push(result.value);
+        } else {
+          console.warn("Failed to fetch Pokémon:", result.reason);
+        }
+      });
+      setPokemonData(pokemonList);
+    });
   }, [pokemonCount]);
 
   return (
     <div className="card-grid">
-      {pokemonData.length !== 0 &&
-        pokemonData.map((pokemon) => {
-          return <Card key={pokemon.id} pokemon={pokemon} />;
-        })}
+      {pokemonData.map((pokemon) => (
+        <Card key={pokemon.id} pokemon={pokemon} />
+      ))}
     </div>
   );
 }
