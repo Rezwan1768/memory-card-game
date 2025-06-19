@@ -4,3 +4,24 @@
   gap: var(--card-border-width);
   justify-content: center;
 }
+
+.spinner {
+  width: var(--spinner-size);
+  height: var(--spinner-size);
+  border: var(--spinner-border-width) solid var(--spinner-border-color);
+  border-left-color: var(--spinner-accent-color);
+  border-radius: 50%;
+  animation: spin var(--spinner-animation-duration)
+    var(--spinner-animation-timing, linear) infinite;
+  margin: 100px auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

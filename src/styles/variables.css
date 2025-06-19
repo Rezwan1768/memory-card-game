@@ -18,4 +18,12 @@
     var(--card-image-size) + var(--card-padding) * 2 +
       var(--card-border-width) * 2
   );
+
+  /* Load Spinner variables */
+  --spinner-size: 40px;
+  --spinner-border-width: 7px;
+  --spinner-border-color: #ecec11;
+  --spinner-accent-color: #717149;
+  --spinner-animation-duration: 0.75s;
+  --spinner-animation-timing: ease;
 }

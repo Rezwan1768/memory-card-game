@@ -5,6 +5,7 @@ import "../styles/cardGrid.css";
 export function CardGrid() {
   const [pokemonCount, setPokemonCount] = useState(0);
   const [pokemonData, setPokemonData] = useState([]);
+  const [error, setError] = useState(null);
   console.log(pokemonCount);
   console.log(pokemonData);
   /*
@@ -14,16 +15,22 @@ export function CardGrid() {
   useEffect(() => {
     const pokemonCountURL = "https://pokeapi.co/api/v2/pokemon-species?limit=1";
     async function fetchPokemonCount() {
-      const response = await fetch(pokemonCountURL);
-      const pokemonListData = await response.json();
-      console.log(pokemonListData.count);
-      setPokemonCount(pokemonListData.count);
+      try {
+        const response = await fetch(pokemonCountURL);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch Pokémon count: ${response.status}`);
+        }
+        const pokemonListData = await response.json();
+        setPokemonCount(pokemonListData.count);
+      } catch (error) {
+        setError(error.message);
+      }
     }
     fetchPokemonCount();
   }, []);
 
   useEffect(() => {
-    if (pokemonCount <= 0) return;
+    if (pokemonCount <= 0 || error) return;
 
     // Generate and store unique pokemon ids to fetch
     const pokemonIdSet = new Set();
@@ -56,13 +63,19 @@ export function CardGrid() {
       results.forEach((result) => {
         if (result.status === "fulfilled") {
           pokemonList.push(result.value);
-        } else {
-          console.warn("Failed to fetch Pokémon:", result.reason);
         }
       });
-      setPokemonData(pokemonList);
+      if (pokemonList.length === 0) {
+        setError("Failed to fetch any pokemon.");
+      } else {
+        setPokemonData(pokemonList);
+      }
     });
   }, [pokemonCount]);
+
+  if (error) return <div>{error}</div>;
+
+  if (pokemonData.length === 0) return <div className="spinner"></div>;
 
   return (
     <div className="card-grid">
