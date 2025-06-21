@@ -1,11 +1,32 @@
 :root {
+  /* Dark Theme */
+  --dark-theme-background: #242424;
+  --dark-theme-text-color: #ebda3b;
+  --dark-theme-input-color: #575555;
+
+  /* Light Theme */
+  --light-theme-background: #e0dbb8;
+  --light-theme-text-color: #4c4300;
+  --light-theme-input-color: #cccc9b;
+
+  /* General Styles*/
+  --background-color: var(--dark-theme-background);
+  --text-color: var(--dark-theme-text-color);
+  --input-color: var(--dark-theme-input-color);
+
+  --max-display-width: clamp(280px, 96vw, 1280px);
+  --title-large: clamp(1.2rem, 6vw, 2.2rem);
+  --title-small: clamp(0.65rem, 2.5vw, 1.4rem);
+  --font-size-normal: clamp(16px, 2vw, 1.3rem);
+  --button-border-color: var(--text-color);
+
   /* Default card variables */
   --card-color-start: hsl(60, 1%, 48%);
   --card-color-mid: #e4f3d7;
   --card-color-end: #b2b2b1;
 
   --card-text-color: var(--card-color-mid);
-  --card-font-size: clamp(0.55rem, 2.5vw, 1.4rem);
+  --card-font-size: var(--title-small);
 
   --card-border-color: var(--card-color-start);
   --card-border-width: clamp(9px, 2vw, 18px);
@@ -26,4 +47,12 @@
   --spinner-accent-color: #717149;
   --spinner-animation-duration: 0.75s;
   --spinner-animation-timing: ease;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --background-color: var(--light-theme-background);
+    --text-color: var(--light-theme-text-color);
+    --input-color: var(--light-theme-input-color);
+  }
 }

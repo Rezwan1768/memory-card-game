@@ -175,7 +175,7 @@
   --card-color-mid: #3a1f39;
   --card-color-end: #953a86;
   --card-border-color: var(--card-color-start);
-  --card-text-color: var(--card-color-mid);
+  /* --card-text-color: var(--card-color-mid); */
 }
 
 .type-dark {
