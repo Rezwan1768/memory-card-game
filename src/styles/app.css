@@ -29,9 +29,12 @@ label[for="difficulty-select"] {
 #difficulty-select,
 .refresh-btn {
   font-size: inherit;
-
   color: inherit;
   background-color: var(--input-color);
+  transition:
+    transform 0.1s ease,
+    opacity 0.1s ease;
+  cursor: pointer;
 }
 
 #difficulty-select {
@@ -43,10 +46,13 @@ label[for="difficulty-select"] {
   padding: 3px 12px;
 }
 
-select:hover,
-select:focus,
-button:hover,
-button:focus {
+#difficulty-select:hover,
+.refresh-btn:hover {
   transform: scale(1.1);
   opacity: 0.8;
+}
+
+#difficulty-select:focus,
+.refresh-btn:focus {
+  transform: scale(1.1);
 }

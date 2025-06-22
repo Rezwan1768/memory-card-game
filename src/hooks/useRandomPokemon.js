@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export function useRandomPokemon() {
+export function useRandomPokemon(fetchCount = 14, refreshKey) {
   const [pokemonCount, setPokemonCount] = useState(0);
   const [pokemonData, setPokemonData] = useState([]);
   const [error, setError] = useState(null);
@@ -28,10 +28,12 @@ export function useRandomPokemon() {
 
   useEffect(() => {
     if (pokemonCount <= 0 || error) return;
+    setPokemonData([]); // To show load spinner on refresh
+    let ignore = false;
 
     // Generate and store unique pokemon ids to fetch
     const pokemonIdSet = new Set();
-    while (pokemonIdSet.size < 20) {
+    while (pokemonIdSet.size < fetchCount) {
       const randomId = Math.floor(Math.random() * pokemonCount) + 1;
       if (!pokemonIdSet.has(randomId)) pokemonIdSet.add(randomId);
     }
@@ -52,6 +54,8 @@ export function useRandomPokemon() {
     });
 
     Promise.allSettled(promises).then((results) => {
+      if (ignore) return; // prevent stale state update
+
       /*
        * Store all data first in a temporary array. Update state once all data
        * is collected to minimize renders.
@@ -68,7 +72,8 @@ export function useRandomPokemon() {
         setPokemonData(pokemonList);
       }
     });
-  }, [pokemonCount]);
+    return () => (ignore = true);
+  }, [pokemonCount, fetchCount, refreshKey]);
 
   return { pokemonData, error };
 }

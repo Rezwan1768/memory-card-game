@@ -2,8 +2,16 @@ import { useRandomPokemon } from "../hooks/useRandomPokemon";
 import { Card } from "./Card";
 import "../styles/cardGrid.css";
 
-export function CardGrid() {
-  const { pokemonData, error } = useRandomPokemon();
+const difficultyMap = {
+  easy: 14,
+  medium: 20,
+  hard: 28,
+  hell: 40,
+};
+
+export function CardGrid({ difficulty, refreshKey }) {
+  const fetchCount = difficultyMap[difficulty];
+  const { pokemonData, error } = useRandomPokemon(fetchCount, refreshKey);
 
   if (error) return <div>{error}</div>;
 

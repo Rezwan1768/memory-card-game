@@ -51,7 +51,7 @@
   --card-color-mid: #ffffff;
   --card-color-end: #c4baba;
   --card-border-color: var(--card-color-start);
-  --card-text-color: var(--card-color-mid);
+  --card-text-color: rgb(65, 58, 58);
 }
 
 .type-fighting {
