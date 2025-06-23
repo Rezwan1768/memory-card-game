@@ -3,11 +3,17 @@ import { DifficultyControl } from "./DifficultyControl";
 import { ScoreBoard } from "./ScoreBoard";
 import "../styles/app.css";
 import { CardGrid } from "./CardGrid";
+import { shuffle } from "../utils/shuffle";
 
 function App() {
+  const [shuffledPokemon, setShuffledPokemon] = useState([]);
   const [difficulty, setDifficulty] = useState("easy");
   const [refreshKey, setRefreshKey] = useState(0);
   const [score, setScore] = useState(0);
+
+  function onShuffle() {
+    setShuffledPokemon((prev) => shuffle(prev));
+  }
 
   function onDifficultyChange(e) {
     setDifficulty(e.target.value);
@@ -24,17 +30,21 @@ function App() {
       <h1>Pokemon Memory Game</h1>
       <div className="controls-wrapper">
         <DifficultyControl onChange={onDifficultyChange} value={difficulty} />
-        <button type="button" className="refresh-btn" onClick={onRefresh}>
-          Refresh
+        <button type="button" className="control-btn" onClick={onShuffle}>
+          Shuffle
+        </button>
+        <button type="button" className="control-btn" onClick={onRefresh}>
+          New
         </button>
         <ScoreBoard score={score} />
       </div>
       <CardGrid
+        shuffledPokemon={shuffledPokemon}
+        setShuffledPokemon={setShuffledPokemon}
         difficulty={difficulty}
         refreshKey={refreshKey}
         setScore={setScore}
       />
-      ;
     </>
   );
 }

@@ -25,6 +25,7 @@ body {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   min-width: 320px;
   min-height: 100vh;
+  margin: 8px;
 }
 
 #root {

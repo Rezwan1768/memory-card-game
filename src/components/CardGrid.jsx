@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRandomPokemon } from "../hooks/useRandomPokemon";
+import { shuffle } from "../utils/shuffle";
 import "../styles/cardGrid.css";
 import { Card } from "./Card";
 
@@ -10,19 +11,23 @@ const difficultyMap = {
   hell: 40,
 };
 
-export function CardGrid({ difficulty, refreshKey, setScore }) {
+export function CardGrid({
+  shuffledPokemon,
+  setShuffledPokemon,
+  difficulty,
+  refreshKey,
+  setScore,
+}) {
   const [selectedPokemonIds, setSelectedPokemonIds] = useState(new Set());
   const fetchCount = difficultyMap[difficulty];
   const { pokemonData, error } = useRandomPokemon(fetchCount, refreshKey);
-
-  const [shuffledPokemon, setShuffledPokemon] = useState([]);
 
   // Update shuffledPokemon when new pokemonData is fetched
   useEffect(() => {
     if (pokemonData.length > 0) {
       setShuffledPokemon(pokemonData);
     }
-  }, [pokemonData]);
+  }, [pokemonData, setShuffledPokemon]);
 
   function onCardClick(pokemonId) {
     if (selectedPokemonIds.has(pokemonId)) {
@@ -36,7 +41,7 @@ export function CardGrid({ difficulty, refreshKey, setScore }) {
       });
       setScore((score) => score + 1);
     }
-    setShuffledPokemon(shuffle(pokemonData));
+    setShuffledPokemon(shuffle(shuffledPokemon));
   }
 
   if (error) return <div>{error}</div>;
@@ -50,20 +55,4 @@ export function CardGrid({ difficulty, refreshKey, setScore }) {
       ))}
     </div>
   );
-}
-
-function shuffle(array) {
-  const arrayCopy = array.slice();
-  let lastIndex = arrayCopy.length;
-  while (lastIndex > 0) {
-    const randomIndex = Math.floor(Math.random() * lastIndex);
-    lastIndex--;
-
-    // Swap the values by destructuring
-    [arrayCopy[lastIndex], arrayCopy[randomIndex]] = [
-      arrayCopy[randomIndex],
-      arrayCopy[lastIndex],
-    ];
-  }
-  return arrayCopy;
 }
