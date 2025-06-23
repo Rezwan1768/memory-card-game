@@ -15,7 +15,7 @@
   --input-color: var(--dark-theme-input-color);
 
   --max-display-width: clamp(280px, 96vw, 1280px);
-  --title-large: clamp(1.2rem, 6vw, 2rem);
+  --title-large: clamp(1rem, 6vw, 2rem);
   --title-small: clamp(0.5rem, 2.5vw, 1.2rem);
   --font-size-normal: clamp(16px, 2vw, 1.3rem);
   --button-border-color: var(--text-color);

@@ -7,14 +7,16 @@ import { CardGrid } from "./CardGrid";
 function App() {
   const [difficulty, setDifficulty] = useState("easy");
   const [refreshKey, setRefreshKey] = useState(0);
+  const [score, setScore] = useState(0);
 
   function onDifficultyChange(e) {
     setDifficulty(e.target.value);
-    console.log(e.target.value);
+    setScore(0);
   }
 
   function onRefresh() {
     setRefreshKey(refreshKey + 1);
+    setScore(0);
   }
 
   return (
@@ -25,9 +27,14 @@ function App() {
         <button type="button" className="refresh-btn" onClick={onRefresh}>
           Refresh
         </button>
-        <ScoreBoard />
+        <ScoreBoard score={score} />
       </div>
-      <CardGrid difficulty={difficulty} refreshKey={refreshKey} />;
+      <CardGrid
+        difficulty={difficulty}
+        refreshKey={refreshKey}
+        setScore={setScore}
+      />
+      ;
     </>
   );
 }
