@@ -4,12 +4,16 @@ import { ScoreBoard } from "./ScoreBoard";
 import "../styles/app.css";
 import { CardGrid } from "./CardGrid";
 import { shuffle } from "../utils/shuffle";
+import { Modal } from "./Modal";
 
 function App() {
   const [shuffledPokemon, setShuffledPokemon] = useState([]);
   const [difficulty, setDifficulty] = useState("easy");
-  const [refreshKey, setRefreshKey] = useState(0);
+  const [resetKey, setResetKey] = useState(0);
   const [score, setScore] = useState(0);
+
+  const hasPlayerWon =
+    shuffledPokemon.length > 0 && score === shuffledPokemon.length;
 
   function onShuffle() {
     setShuffledPokemon((prev) => shuffle(prev));
@@ -20,8 +24,8 @@ function App() {
     setScore(0);
   }
 
-  function onRefresh() {
-    setRefreshKey(refreshKey + 1);
+  function onReset() {
+    setResetKey(resetKey + 1);
     setScore(0);
   }
 
@@ -42,7 +46,7 @@ function App() {
           <button
             type="button"
             className="control-btn"
-            onClick={onRefresh}
+            onClick={onReset}
             disabled={shuffledPokemon.length === 0}
           >
             New
@@ -57,9 +61,11 @@ function App() {
         shuffledPokemon={shuffledPokemon}
         setShuffledPokemon={setShuffledPokemon}
         difficulty={difficulty}
-        refreshKey={refreshKey}
+        resetKey={resetKey}
         setScore={setScore}
       />
+
+      {hasPlayerWon && <Modal onClick={onReset} />}
     </>
   );
 }

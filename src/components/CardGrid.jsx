@@ -15,12 +15,12 @@ export function CardGrid({
   shuffledPokemon,
   setShuffledPokemon,
   difficulty,
-  refreshKey,
+  resetKey,
   setScore,
 }) {
   const [selectedPokemonIds, setSelectedPokemonIds] = useState(new Set());
   const fetchCount = difficultyMap[difficulty];
-  const { pokemonData, error } = useRandomPokemon(fetchCount, refreshKey);
+  const { pokemonData, error } = useRandomPokemon(fetchCount, resetKey);
 
   // Update shuffledPokemon when new pokemonData is fetched
   useEffect(() => {

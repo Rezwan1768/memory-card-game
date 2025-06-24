@@ -23,12 +23,14 @@
   --control-border-color: var(--text-color);
   --control-gap: 3vw;
   --control-width: clamp(70px, 10vw, 90px);
-  --highlight-color: #ecec11;
+  --highlight-color: #959519;
+  --control-button-padding: 3px 9px;
 
   /* Default card variables */
   --card-color-start: hsl(60, 1%, 48%);
   --card-color-mid: #e4f3d7;
   --card-color-end: #b2b2b1;
+  --card-outline-color: var(--light-theme-background);
 
   --card-text-color: var(--card-color-mid);
   --card-font-size: var(--title-small);
@@ -59,5 +61,7 @@
     --background-color: var(--light-theme-background);
     --text-color: var(--light-theme-text-color);
     --input-color: var(--light-theme-input-color);
+
+    --card-outline-color: var(--dark-theme-background);
   }
 }
