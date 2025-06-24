@@ -17,8 +17,13 @@
   --max-display-width: clamp(280px, 95vw, 1280px);
   --title-large: clamp(1rem, 6vw, 2rem);
   --title-small: clamp(0.5rem, 2.5vw, 1.2rem);
-  --font-size-normal: clamp(16px, 2vw, 1.3rem);
-  --button-border-color: var(--text-color);
+  --font-size-normal: clamp(14px, 2vw, 1.3rem);
+
+  /* Control/button styles */
+  --control-border-color: var(--text-color);
+  --control-gap: 3vw;
+  --control-width: clamp(70px, 10vw, 90px);
+  --highlight-color: #ecec11;
 
   /* Default card variables */
   --card-color-start: hsl(60, 1%, 48%);

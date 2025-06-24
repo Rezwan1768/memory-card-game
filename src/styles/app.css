@@ -4,26 +4,31 @@ h1 {
   margin: 1rem 0;
 }
 
-.controls-wrapper {
+.game-header {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  column-gap: 50px;
-  row-gap: 10px;
+  gap: 10vw;
   margin-bottom: 1rem;
 }
 
-.controls-wrapper > * {
-  min-width: min-content;
+.controls-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: var(--control-gap);
+  row-gap: 10px;
+}
+
+@media (max-width: 480px) {
+  .controls-wrapper {
+    max-width: calc(var(--control-width) * 2 + var(--control-gap));
+  }
 }
 
 label[for="difficulty-select"] {
   margin-right: 10px;
-}
-
-.score-container {
-  text-align: right;
 }
 
 #difficulty-select,
@@ -35,15 +40,15 @@ label[for="difficulty-select"] {
     transform 0.1s ease,
     opacity 0.1s ease;
   cursor: pointer;
+  width: var(--control-width);
+  border-color: var(--control-border-color);
 }
 
 #difficulty-select {
-  padding: 3px 6px;
+  padding: 3px 2px;
 }
 
 .control-btn {
-  border-color: var(--button-border-color);
-  width: 80px;
   padding: 3px 12px;
 }
 
@@ -53,7 +58,20 @@ label[for="difficulty-select"] {
   opacity: 0.8;
 }
 
-#difficulty-select:focus,
-.control-btn:focus {
+#difficulty-select:focus-visible,
+.control-btn:focus-visible {
   transform: scale(1.1);
+  outline: 2px solid var(--highlight-color);
+}
+
+button:disabled {
+  background-color: #808080;
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.score-container {
+  text-align: right;
+  text-wrap: nowrap;
 }

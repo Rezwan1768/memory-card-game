@@ -28,16 +28,31 @@ function App() {
   return (
     <>
       <h1>Pokemon Memory Game</h1>
-      <div className="controls-wrapper">
-        <DifficultyControl onChange={onDifficultyChange} value={difficulty} />
-        <button type="button" className="control-btn" onClick={onShuffle}>
-          Shuffle
-        </button>
-        <button type="button" className="control-btn" onClick={onRefresh}>
-          New
-        </button>
+      <div className="game-header">
+        <div className="controls-wrapper">
+          <button
+            type="button"
+            className="control-btn"
+            onClick={onShuffle}
+            disabled={shuffledPokemon.length === 0}
+          >
+            Shuffle
+          </button>
+
+          <button
+            type="button"
+            className="control-btn"
+            onClick={onRefresh}
+            disabled={shuffledPokemon.length === 0}
+          >
+            New
+          </button>
+
+          <DifficultyControl onChange={onDifficultyChange} value={difficulty} />
+        </div>
         <ScoreBoard score={score} />
       </div>
+
       <CardGrid
         shuffledPokemon={shuffledPokemon}
         setShuffledPokemon={setShuffledPokemon}
