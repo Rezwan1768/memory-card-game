@@ -23,7 +23,7 @@
   /* Control/button styles */
   --control-border-color: var(--text-color);
   --control-gap: 3vw;
-  --control-width: clamp(70px, 10vw, 90px);
+  --control-width: clamp(70px, 10vw, 100px);
   --highlight-color: #959519;
   --control-button-padding: 3px 9px;
 
