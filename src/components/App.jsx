@@ -22,11 +22,13 @@ function App() {
   function onDifficultyChange(e) {
     setDifficulty(e.target.value);
     setScore(0);
+    setShuffledPokemon([]);
   }
 
   function onReset() {
     setResetKey(resetKey + 1);
     setScore(0);
+    setShuffledPokemon([]);
   }
 
   return (
