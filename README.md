@@ -1,12 +1,44 @@
-# React + Vite
+# Pokémon Memory Card Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fun and challenging memory game built with React! Click on unique Pokémon cards without repeating — test your memory and try to beat your high score!
 
-Currently, two official plugins are available:
+🔗 **Live Demo**: [Play the Game](https://memory-card-game-pokemon.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🧠 How to Play
 
-## Expanding the ESLint configuration
+- Click on a Pokémon you haven’t selected before.
+- If you click the same one twice, your score resets.
+- The cards shuffle after every click.
+- Try to get the highest score possible without repeating!
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠 Features
+
+- Select difficulty levels: Easy, Medium, Hard, Hell
+- Score tracking with best score saved using `localStorage`
+- Shuffle and New Game buttons
+- Responsive design and keyboard-accessible controls
+- Victory modal on winning the game
+
+## ⚡ Tech Stack
+
+- React (Functional Components + Hooks)
+- CSS (Custom properties and responsive layout)
+- [PokéAPI](https://pokeapi.co/docs/v2) for live Pokémon data
+
+## 🖼️ Assets & Attribution
+
+- **Pokémon Data & Images**:  
+  [PokéAPI - The RESTful Pokémon API](https://pokeapi.co/docs/v2)
+
+- **Favicon (Pikachu image)**:  
+  Image used for educational/personal use only.  
+  Source: [freeiconspng.com](https://www.freeiconspng.com/img/32576)
+
+## 📂 Getting Started (Local Development)
+
+```bash
+git clone https://github.com/your-username/pokemon-memory-game.git
+cd pokemon-memory-game
+npm install
+npm start
+```
