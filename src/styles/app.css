@@ -10,6 +10,9 @@ h1 {
   align-items: center;
   gap: 10vw;
   margin-bottom: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .controls-wrapper {
